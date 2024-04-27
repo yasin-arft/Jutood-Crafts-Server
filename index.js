@@ -35,6 +35,12 @@ async function run() {
     // create craft collection
     const craftCollection = client.db('craftsDB').collection('crafts');
 
+    // get api (all)
+    app.get('/crafts', async (req, res) => {
+      const result = await craftCollection.find().toArray();
+      res.send(result);
+    });
+
     // post api
     app.post('/crafts', async (req, res) => {
       const data = req.body;
