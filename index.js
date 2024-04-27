@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
 import 'dotenv/config';
 
 const app = express();
@@ -38,6 +38,14 @@ async function run() {
     // get api (all)
     app.get('/crafts', async (req, res) => {
       const result = await craftCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get api (get single data by id)
+    app.get('/crafts/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await craftCollection.findOne(query);
       res.send(result);
     });
 
