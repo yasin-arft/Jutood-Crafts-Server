@@ -49,6 +49,13 @@ async function run() {
       res.send(result);
     });
 
+    // get api (get data by matching email)
+    app.get('/my_crafts/:email', async (req, res) => {
+      const query = { userEmail: req.params.email };
+      const result = await craftCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // post api
     app.post('/crafts', async (req, res) => {
       const data = req.body;
