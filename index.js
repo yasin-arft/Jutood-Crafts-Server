@@ -63,6 +63,13 @@ async function run() {
       res.send(result);
     });
 
+    // delete api
+    app.delete('/crafts/:id', async (req, res) => {
+      const query = { _id: new ObjectId(req.params.id) };
+      const result = await craftCollection.deleteOne(query);
+      res.send(result);
+    });
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
