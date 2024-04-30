@@ -57,6 +57,13 @@ async function run() {
       res.send(result);
     });
 
+    // get api (get data by matching subcategory)
+    app.get('/subcategory_crafts/:subcategory', async (req, res) => {
+      const query = { subcategoryName: req.params.subcategory };
+      const result = await craftCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // get subCate
     app.get('/crafts_sub_cate', async (req, res) => { 
       const result = await craftSubCateCollection.find().toArray();
