@@ -27,13 +27,14 @@ app.get('/', (req, res) => {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    // await client.db("admin").command({ ping: 1 });
+    // console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     // create craft collection
     const craftCollection = client.db('craftsDB').collection('crafts');
+    const craftSubCateCollection = client.db('craftsDB').collection('craftsSubCate');
 
     // get api (all)
     app.get('/crafts', async (req, res) => {
@@ -53,6 +54,12 @@ async function run() {
     app.get('/my_crafts/:email', async (req, res) => {
       const query = { userEmail: req.params.email };
       const result = await craftCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    // get subCate
+    app.get('/crafts_sub_cate', async (req, res) => { 
+      const result = await craftSubCateCollection.find().toArray();
       res.send(result);
     });
 
